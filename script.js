@@ -119,7 +119,7 @@ if (typeof xpathGetter === 'undefined') {
 			elm._pg = {
 				name : name,
 				code : ret.split(':')[1],
-				selector : ret.split(':')[0]
+				selector : ret.split(':')[0],
 			};
 		}
 
@@ -133,7 +133,6 @@ if (typeof xpathGetter === 'undefined') {
 				className  : className,
 				items : _.pluck(seletectedElms, '_pg')
 			};
-
 			var code = xpathGetter.codeTemplate(context);
 			// jQuery('body').append("<pre class='pg_page'></pre>");
 			// jQuerytarget = jQuery('body pre.pg_page');
@@ -274,7 +273,6 @@ if (typeof xpathGetter === 'undefined') {
 
 
 		function reg () {
-			console.log("reg called")
 			if (!xpathGetter.iniatilized)
 				return;
 			alert('xpathGetter is active');
@@ -301,7 +299,7 @@ if (typeof xpathGetter === 'undefined') {
 			document.oncontextmenu = null;
 			generateCode();
 		}
-		var codeTemplateRaw = "%7B%7B%23if%20packageName%7D%7Dpackage%20%7B%7BpackageName%7D%7D%3B%20%7B%7B%2Fif%7D%7D%0A%0Aimport%20org.openqa.selenium.WebDriver%3B%0Aimport%20org.openqa.selenium.WebElement%3B%0Aimport%20org.openqa.selenium.support.FindBy%3B%0Aimport%20org.openqa.selenium.support.How%3B%0A%0A%0Apublic%20class%20%7B%7BclassName%7D%7D%20%7B%7B%23if%20extendsName%7D%7D%20extends%20%7B%7BextendsName%7D%7D%20%7B%7B%2Fif%7D%7D%7B%20%20%0A%0A%20%20%7B%7B%23each%20items%7D%7D%20%20%20%20%0A%20%20%40FindBy(how%20%3D%20How.%7B%7Bcaps%20selector%7D%7D%2C%20using%20%3D%20%22%7B%7Bcode%7D%7D%22)%20%20%0A%20%20private%20WebElement%20%7B%7Bname%7D%7D%3B%09%20%0A%0A%20%20%7B%7B%2Feach%7D%7D%20%20%0A%0A%0A%20%20public%20%7B%7BclassName%7D%7D(WebDriver%20driver)%7B%0A%09super(driver)%3B%0A%09this.driver%20%3D%20driver%3B%0A%20%20%7D%0A%0A%0A%20%20%7B%7B%23each%20items%7D%7D%20%20%20%20%0A%20%20public%20WebElement%20get%7B%7Bcamelcase%20name%7D%7D()%20%7B%0A%09return%20%7B%7Bname%7D%7D%3B%0A%20%20%7D%0A%20%20%0A%20%20%7B%7B%2Feach%7D%7D%20%20%0A%0A%7D"; 
+		var codeTemplateRaw = "%7B%7B%23if%20packageName%7D%7Dpackage%20%7B%7BpackageName%7D%7D%3B%20%7B%7B%2Fif%7D%7D%0A%0Aimport%20org.openqa.selenium.WebDriver%3B%0Aimport%20org.openqa.selenium.WebElement%3B%0Aimport%20org.openqa.selenium.support.FindBy%3B%0Aimport%20org.openqa.selenium.support.How%3B%0A%0A%0Apublic%20class%20%7B%7BclassName%7D%7D%20%7B%7B%23if%20extendsName%7D%7D%20extends%20%7B%7BextendsName%7D%7D%20%7B%7B%2Fif%7D%7D%7B%20%20%0A%20%20%7B%7B%23each%20items%7D%7D%20%20%20%20%0A%0A%20%20%40FindBy(how%20%3D%20How.%7B%7Bcaps%20selector%7D%7D%2C%20using%20%3D%20%22%7B%7Bcode%7D%7D%22)%20%20%0A%20%20private%20WebElement%20%7B%7Bcamelcase%20name%7D%7D%3B%09%20%0A%20%20%7B%7B%2Feach%7D%7D%20%20%0A%0A%20%20public%20%7B%7BclassName%7D%7D(WebDriver%20driver)%7B%0A%09super(driver)%3B%0A%09this.driver%20%3D%20driver%3B%0A%20%20%7D%0A%20%20%7B%7B%23each%20items%7D%7D%20%20%20%20%0A%20%20%0A%20%20public%20WebElement%20get%7B%7Bcamelcase%20name%7D%7D()%20%7B%0A%09return%20%7B%7Bcamelcase%20name%7D%7D%3B%0A%20%20%7D%0A%20%20%7B%7B%2Feach%7D%7D%20%20%0A%20%20%7B%7B%23each%20items%7D%7D%20%20%20%20%0A%0A%20%20%7B%7B%23ifButton%7D%7D%0A%20%20public%20void%20click%7B%7Bcamelcase%20name%7D%7D()%20%7B%0A%09get%7B%7Bcamelcase%20name%7D%7D().click()%3B%0A%20%20%7D%20%20%0A%20%20%7B%7B%2FifButton%7D%7D%0A%20%20%7B%7B%23ifTextBox%7D%7D%0A%20%20public%20void%20clear%7B%7Bcamelcase%20name%7D%7D()%20%7B%0A%09get%7B%7Bcamelcase%20name%7D%7D().clear()%3B%0A%20%20%7D%0A%0A%20%20public%20void%20set%7B%7Bcamelcase%20name%7D%7D(String%20value)%20%7B%0A%09get%7B%7Bcamelcase%20name%7D%7D().clear()%3B%0A%09CincoKeyboardHelper.sendKeys(getDriver()%2C%20value)%3B%0A%20%20%7D%20%20%20%20%0A%20%20%7B%7B%2FifTextBox%7D%7D%0A%20%20%7B%7B%2Feach%7D%7D%20%20%0A%0A%0A%7D"; 
 		importJS('//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js', 'jQuery', function(){
 			importJS('//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js', '_', function(){
 				importJS('//cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0-alpha.2/handlebars.min.js', 'Handlebars', function(){
@@ -313,8 +311,21 @@ if (typeof xpathGetter === 'undefined') {
 						name = name.replace(/\s/g, "")
 						return name;
 					});
+					String.prototype.startsWith = function (str){
+					    return this.toLowerCase().indexOf(str.toLowerCase()) == 0;
+					};
 					Handlebars.registerHelper('caps', function(word){
 						return word.toUpperCase();
+					});
+					Handlebars.registerHelper('ifTextBox', function(block){
+						if (this.name.startsWith('txt')){
+							return block.fn(this);
+						}
+					});
+					Handlebars.registerHelper('ifButton', function(block){
+						if (this.name.startsWith('btn')){
+							return block.fn(this);
+						}
 					});
 				    xpathGetter.iniatilized = true;
 				    xpathGetter.isActive = true;
